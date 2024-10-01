@@ -1,0 +1,15 @@
+﻿<Window x:Class="FairyTaleEncyclopedia.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Энциклопедия сказочников мира" Height="450" Width="550">
+    <Grid>
+        <TextBox x:Name="SearchBox" Width="200" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top" Text="Поиск"/>
+        <Button Content="Поиск" Width="100" Margin="220,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Search_Click"/>
+
+        <DataGrid x:Name="WritersGrid" AutoGenerateColumns="True" Height="300" Margin="10,49,10,85" IsReadOnly="True" MouseDoubleClick="WritersGrid_MouseDoubleClick"/>
+
+        <Button Content="Добавить" Width="100" Margin="10,360,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="AddWriter_Click"/>
+        <Button Content="Редактировать" Width="100" Margin="120,360,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="AddWriter_Click"/>
+        <Button Content="Удалить" Width="100" Margin="230,360,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="DeleteWriter_Click"/>
+    </Grid>
+</Window>
