@@ -25,7 +25,7 @@ namespace Encyclopedia
         }
 
         // Метод для заполнения окна данными писателя
-        public void SetWriterDetails(string firstName, string lastName, string patronymic, DateTime? birthDate, DateTime? deathDate, string countryName, string biography, byte[] imageData)
+        public void SetWriterDetails(string firstName, string lastName, string patronymic, DateTime? birthDate, DateTime? deathDate, string countryName, string biography, byte[] photoData)
         {
             FirstNameText.Text = firstName;
             LastNameText.Text = lastName;
@@ -36,9 +36,9 @@ namespace Encyclopedia
             BiographyText.Text = string.IsNullOrEmpty(biography) ? "—" : biography;
 
             // Если есть изображение, отображаем его
-            if (imageData != null && imageData.Length > 0)
+            if (photoData != null && photoData.Length > 0)
             {
-                using (var ms = new System.IO.MemoryStream(imageData))
+                using (var ms = new System.IO.MemoryStream(photoData))
                 {
                     var image = new BitmapImage();
                     image.BeginInit();

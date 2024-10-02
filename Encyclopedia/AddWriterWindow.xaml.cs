@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
+using System.IO;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace FairyTaleEncyclopedia
 {
@@ -12,6 +15,8 @@ namespace FairyTaleEncyclopedia
         public DateTime? DeathDate { get; set; }
         public string CountryName { get; set; }
         public string Biography { get; set; }
+        public byte[] PhotoData { get; set; }
+
 
         public AddWriterWindow()
         {
@@ -43,6 +48,27 @@ namespace FairyTaleEncyclopedia
         {
             DialogResult = false;
             this.Close();
+        }
+
+        // Логика для загрузки фотографии
+        private void UploadPhotoButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                // Чтение выбранного файла изображения
+                PhotoData = File.ReadAllBytes(openFileDialog.FileName);
+
+                // Отображение изображения в интерфейсе
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.StreamSource = new MemoryStream(PhotoData);
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.EndInit();
+
+                PhotoPreview.Source = bitmap;
+            }
         }
     }
 }
