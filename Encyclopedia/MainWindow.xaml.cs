@@ -4,6 +4,7 @@ using System;
 using System.Data;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 
 namespace FairyTaleEncyclopedia
@@ -12,6 +13,7 @@ namespace FairyTaleEncyclopedia
     {
         private string connectionString = "server=localhost;user=root;database=FairyTaleEncyclopedia;password=;";
         private MySqlConnection connection;
+        private int selectedWriterId;
 
         public MainWindow()
         {
@@ -39,30 +41,51 @@ namespace FairyTaleEncyclopedia
             }
         }
 
+        private void RemoveText(object sender, EventArgs e)
+        {
+            if (SearchBox.Text == "Поиск")
+            {
+                SearchBox.Text = "";
+                SearchBox.Foreground = Brushes.Black;
+            }
+        }
+
+        private void AddText(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(SearchBox.Text))
+            {
+                SearchBox.Text = "Поиск";
+                SearchBox.Foreground = Brushes.Gray;
+            }
+        }
+
         private void Search_Click(object sender, RoutedEventArgs e)
         {
             string searchTerm = SearchBox.Text;
 
-            if (!string.IsNullOrEmpty(searchTerm))
+            if (searchTerm == "Поиск" || string.IsNullOrWhiteSpace(searchTerm))
             {
-                try
+                // Если поле пустое или равно "Поиск", выводим весь список
+                searchTerm = ""; // Пустая строка для вывода всех записей
+            }
+
+            try
+            {
+                using (connection = new MySqlConnection(connectionString))
                 {
-                    using (connection = new MySqlConnection(connectionString))
-                    {
-                        connection.Open();
-                        string query = "SELECT * FROM Writers WHERE FirstName LIKE @search";
-                        MySqlCommand cmd = new MySqlCommand(query, connection);
-                        cmd.Parameters.AddWithValue("@search", "%" + searchTerm + "%");
-                        MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                        DataTable dt = new DataTable();
-                        adapter.Fill(dt);
-                        WritersGrid.ItemsSource = dt.DefaultView;
-                    }
+                    connection.Open();
+                    string query = "SELECT * FROM Writers WHERE FirstName LIKE @search";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@search", "%" + searchTerm + "%");
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+                    WritersGrid.ItemsSource = dt.DefaultView;
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Ошибка при поиске: {ex.Message}");
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при поиске: {ex.Message}");
             }
         }
 
@@ -171,8 +194,10 @@ namespace FairyTaleEncyclopedia
 
         private void EditWriter_Click(object sender, RoutedEventArgs e)
         {
+            // Проверяем, выбран ли автор в таблице
             if (WritersGrid.SelectedItem != null)
             {
+                // Получаем данные выбранного автора
                 DataRowView selectedRow = (DataRowView)WritersGrid.SelectedItem;
 
                 int writerID = Convert.ToInt32(selectedRow["WriterID"]);
@@ -184,7 +209,7 @@ namespace FairyTaleEncyclopedia
                 string currentCountryName = selectedRow["CountryName"] != DBNull.Value ? selectedRow["CountryName"].ToString() : null;
                 string currentBiography = selectedRow["Biography"] != DBNull.Value ? selectedRow["Biography"].ToString() : null;
 
-                // Открываем окно редактирования с текущими данными
+                // Открываем окно редактирования и передаем данные выбранного автора
                 AddWriterWindow editWindow = new AddWriterWindow
                 {
                     FirstNameBox = { Text = currentFirstName },
@@ -196,8 +221,10 @@ namespace FairyTaleEncyclopedia
                     BiographyBox = { Text = currentBiography }
                 };
 
+                // Показываем окно для редактирования
                 if (editWindow.ShowDialog() == true)
                 {
+                    // Получаем новые данные от пользователя
                     string newFirstName = editWindow.FirstName;
                     string newLastName = editWindow.LastName;
                     string newPatronymic = editWindow.Patronymic;
@@ -206,7 +233,6 @@ namespace FairyTaleEncyclopedia
                     string newCountryName = editWindow.CountryName;
                     string newBiography = editWindow.Biography;
                     byte[] newPhotoData = editWindow.PhotoData;
-
 
                     try
                     {
@@ -230,11 +256,13 @@ namespace FairyTaleEncyclopedia
                             }
 
                             // Обновление записи писателя
-                            string query = "INSERT INTO Writers (FirstName, LastName, Patronymic, BirthDate, DeathDate, CountryName, Biography, Photo) " +
-                                           "VALUES (@FirstName, @LastName, @Patronymic, @BirthDate, @DeathDate, @CountryName, @Biography, @Photo)";
+                            string updateQuery = "UPDATE Writers SET FirstName = @FirstName, LastName = @LastName, Patronymic = @Patronymic, " +
+                                                 "BirthDate = @BirthDate, DeathDate = @DeathDate, CountryName = @CountryName, Biography = @Biography, Photo = @Photo " +
+                                                 "WHERE WriterID = @WriterID";
 
-                            using (MySqlCommand command = new MySqlCommand(query, connection))
+                            using (MySqlCommand command = new MySqlCommand(updateQuery, connection))
                             {
+                                command.Parameters.AddWithValue("@WriterID", writerID); // Используем WriterID для обновления записи
                                 command.Parameters.AddWithValue("@FirstName", newFirstName);
                                 command.Parameters.AddWithValue("@LastName", newLastName);
                                 command.Parameters.AddWithValue("@Patronymic", string.IsNullOrEmpty(newPatronymic) ? (object)DBNull.Value : newPatronymic);
@@ -255,7 +283,6 @@ namespace FairyTaleEncyclopedia
 
                                 command.ExecuteNonQuery();
                             }
-
 
                             MessageBox.Show("Данные писателя успешно обновлены.");
                             LoadWriters();  // Обновляем данные в таблице
@@ -305,6 +332,19 @@ namespace FairyTaleEncyclopedia
             else
             {
                 MessageBox.Show("Пожалуйста, выберите автора для удаления.");
+            }
+        }
+
+        private void OpenWorksWindow_Click(object sender, RoutedEventArgs e )
+        {
+            if (selectedWriterId != null) 
+            {
+                WorksWindow worksWindow = new WorksWindow(selectedWriterId);
+                worksWindow.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите писателя.");
             }
         }
 

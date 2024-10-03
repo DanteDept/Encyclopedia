@@ -23,6 +23,27 @@ namespace FairyTaleEncyclopedia
             InitializeComponent();
         }
 
+        // Логика для загрузки фотографии
+        private void UploadPhotoButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                // Чтение выбранного файла изображения
+                PhotoData = File.ReadAllBytes(openFileDialog.FileName);
+
+                // Отображение изображения в интерфейсе
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.StreamSource = new MemoryStream(PhotoData);
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.EndInit();
+
+                PhotoPreview.Source = bitmap;
+            }
+        }
+
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             FirstName = FirstNameBox.Text;
@@ -48,27 +69,6 @@ namespace FairyTaleEncyclopedia
         {
             DialogResult = false;
             this.Close();
-        }
-
-        // Логика для загрузки фотографии
-        private void UploadPhotoButton_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
-            if (openFileDialog.ShowDialog() == true)
-            {
-                // Чтение выбранного файла изображения
-                PhotoData = File.ReadAllBytes(openFileDialog.FileName);
-
-                // Отображение изображения в интерфейсе
-                BitmapImage bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.StreamSource = new MemoryStream(PhotoData);
-                bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                bitmap.EndInit();
-
-                PhotoPreview.Source = bitmap;
-            }
         }
     }
 }
