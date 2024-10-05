@@ -194,7 +194,6 @@ namespace FairyTaleEncyclopedia
 
         private void EditWriter_Click(object sender, RoutedEventArgs e)
         {
-            // Проверяем, выбран ли автор в таблице
             if (WritersGrid.SelectedItem != null)
             {
                 // Получаем данные выбранного автора
@@ -208,23 +207,16 @@ namespace FairyTaleEncyclopedia
                 DateTime? currentDeathDate = selectedRow["DeathDate"] != DBNull.Value ? (DateTime?)selectedRow["DeathDate"] : null;
                 string currentCountryName = selectedRow["CountryName"] != DBNull.Value ? selectedRow["CountryName"].ToString() : null;
                 string currentBiography = selectedRow["Biography"] != DBNull.Value ? selectedRow["Biography"].ToString() : null;
+                byte[] currentPhotoData = selectedRow["Photo"] != DBNull.Value ? (byte[])selectedRow["Photo"] : null;
 
                 // Открываем окно редактирования и передаем данные выбранного автора
-                AddWriterWindow editWindow = new AddWriterWindow
-                {
-                    FirstNameBox = { Text = currentFirstName },
-                    LastNameBox = { Text = currentLastName },
-                    PatronymicBox = { Text = currentPatronymic },
-                    BirthDatePicker = { SelectedDate = currentBirthDate },
-                    DeathDatePicker = { SelectedDate = currentDeathDate },
-                    CountryNameBox = { Text = currentCountryName },
-                    BiographyBox = { Text = currentBiography }
-                };
+                EditWriterWindow editWindow = new EditWriterWindow(writerID, currentFirstName, currentLastName, currentPatronymic,
+                                                                    currentBirthDate, currentDeathDate, currentCountryName, currentBiography, currentPhotoData);
 
                 // Показываем окно для редактирования
                 if (editWindow.ShowDialog() == true)
                 {
-                    // Получаем новые данные от пользователя
+                    // Получаем новые данные от пользователя из editWindow
                     string newFirstName = editWindow.FirstName;
                     string newLastName = editWindow.LastName;
                     string newPatronymic = editWindow.Patronymic;
@@ -262,7 +254,7 @@ namespace FairyTaleEncyclopedia
 
                             using (MySqlCommand command = new MySqlCommand(updateQuery, connection))
                             {
-                                command.Parameters.AddWithValue("@WriterID", writerID); // Используем WriterID для обновления записи
+                                command.Parameters.AddWithValue("@WriterID", writerID);
                                 command.Parameters.AddWithValue("@FirstName", newFirstName);
                                 command.Parameters.AddWithValue("@LastName", newLastName);
                                 command.Parameters.AddWithValue("@Patronymic", string.IsNullOrEmpty(newPatronymic) ? (object)DBNull.Value : newPatronymic);
@@ -271,21 +263,20 @@ namespace FairyTaleEncyclopedia
                                 command.Parameters.AddWithValue("@CountryName", string.IsNullOrEmpty(newCountryName) ? (object)DBNull.Value : newCountryName);
                                 command.Parameters.AddWithValue("@Biography", string.IsNullOrEmpty(newBiography) ? (object)DBNull.Value : newBiography);
 
-                                // Если фотография загружена, передаем её. Если нет — передаем NULL.
                                 if (newPhotoData != null && newPhotoData.Length > 0)
                                 {
                                     command.Parameters.AddWithValue("@Photo", newPhotoData);
                                 }
                                 else
                                 {
-                                    command.Parameters.AddWithValue("@Photo", DBNull.Value); // Передаём NULL, если фото не загружено
+                                    command.Parameters.AddWithValue("@Photo", DBNull.Value);
                                 }
 
                                 command.ExecuteNonQuery();
                             }
 
                             MessageBox.Show("Данные писателя успешно обновлены.");
-                            LoadWriters();  // Обновляем данные в таблице
+                            LoadWriters();
                         }
                     }
                     catch (Exception ex)
@@ -299,6 +290,7 @@ namespace FairyTaleEncyclopedia
                 MessageBox.Show("Пожалуйста, выберите писателя для редактирования.");
             }
         }
+
 
         private void DeleteWriter_Click(object sender, RoutedEventArgs e)
         {

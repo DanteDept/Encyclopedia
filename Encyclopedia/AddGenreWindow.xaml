@@ -3,10 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Добавить жанр" Height="200" Width="400">
     <Grid>
-        <TextBlock Text="Название жанра:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
-        <TextBox x:Name="GenreNameBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="150,10,0,0"/>
+        <TextBlock Text="Название жанра:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,19,0,0"/>
+        <TextBox x:Name="GenreNameBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="150,20,0,0" Height="20"/>
+        <TextBlock Text="Описание:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,60,0,0"/>
+        <TextBox x:Name="DescriptionBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="150,60,0,0" Height="50"/>
 
         <Button Content="Сохранить" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Height="30" Margin="80,0,0,20" Click="SaveButton_Click"/>
-        <Button Content="Отмена" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Height="30" Margin="200,0,0,20" Click="CancelButton_Click"/>
+        <Button Content="Отмена" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Height="30" Margin="200,0,0,20" Click="CancelButton_Click" Background="#FFDDDDDD"/>
     </Grid>
 </Window>

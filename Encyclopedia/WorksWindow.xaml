@@ -6,7 +6,7 @@
         <!-- <TextBox x:Name="SearchBox" Width="200" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top" Text="Поиск" GotFocus="RemoveText" LostFocus="AddText"/>
         <Button Content="Поиск" Width="70" Margin="220,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Search_Click" Height="20"/> -->
 
-        <DataGrid x:Name="WorksDataGrid" AutoGenerateColumns="False" Margin="10,57,10,80">
+        <DataGrid x:Name="WorksDataGrid" AutoGenerateColumns="False" Margin="10,57,10,80" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Название" Binding="{Binding Title}" Width="*"/>
                 <DataGridTextColumn Header="Жанр" Binding="{Binding GenreName}" Width="*"/>

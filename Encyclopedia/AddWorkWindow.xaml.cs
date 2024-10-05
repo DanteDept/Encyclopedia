@@ -18,6 +18,7 @@ namespace FairyTaleEncyclopedia
             InitializeComponent();
             WriterID = writerId;
             LoadGenres();
+            LoadWriters();
         }
 
         // Загрузка списка жанров из базы данных
@@ -49,6 +50,39 @@ namespace FairyTaleEncyclopedia
             }
         }
 
+        // Загрузка списка писателей из базы данных
+        private void LoadWriters()
+        {
+            Dictionary<int, string> writers = new Dictionary<int, string>();
+            string connectionString = "server=localhost;user=root;database=FairyTaleEncyclopedia;password=;";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    MySqlCommand command = new MySqlCommand("SELECT WriterID, CONCAT(FirstName, ' ', LastName) AS FullName FROM Writers", connection);
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int writerId = reader.GetInt32("WriterID");
+                            string fullName = reader.GetString("FullName");
+                            writers.Add(writerId, fullName);
+                        }
+                    }
+
+                    WriterComboBox.ItemsSource = writers;
+                    WriterComboBox.DisplayMemberPath = "Value";
+                    WriterComboBox.SelectedValuePath = "Key"; 
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ошибка загрузки писателей: " + ex.Message);
+                }
+            }
+        }
+
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             Title = TitleBox.Text;
@@ -57,9 +91,14 @@ namespace FairyTaleEncyclopedia
             {
                 YearOfPublication = year;
             }
+            // Получаем WriterID из выбранного элемента ComboBox
+            if (WriterComboBox.SelectedValue != null)
+            {
+                WriterID = (int)WriterComboBox.SelectedValue;
+            }
             Description = DescriptionBox.Text;
 
-            if (!string.IsNullOrEmpty(Title) && !string.IsNullOrEmpty(GenreName))
+            if (!string.IsNullOrEmpty(Title) && !string.IsNullOrEmpty(GenreName) && WriterID > 0)
             {
                 if (AddWorkToDatabase())
                 {

@@ -7,6 +7,7 @@ namespace FairyTaleEncyclopedia
     public partial class AddGenreWindow : Window
     {
         public string GenreName { get; set; }
+        public string Description { get; set; }
 
         public AddGenreWindow()
         {
@@ -16,6 +17,7 @@ namespace FairyTaleEncyclopedia
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             GenreName = GenreNameBox.Text;
+            Description = DescriptionBox.Text;
 
             if (!string.IsNullOrEmpty(GenreName))
             {
@@ -45,8 +47,9 @@ namespace FairyTaleEncyclopedia
                 try
                 {
                     connection.Open();
-                    MySqlCommand command = new MySqlCommand("INSERT INTO Genres (GenreName) VALUES (@GenreName)", connection);
+                    MySqlCommand command = new MySqlCommand("INSERT INTO Genres (GenreName), (Description) VALUES (@GenreName), (@Description)", connection);
                     command.Parameters.AddWithValue("@GenreName", GenreName);
+                    command.Parameters.AddWithValue("@Description", Description);
 
                     command.ExecuteNonQuery();
                     return true;
