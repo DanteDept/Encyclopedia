@@ -8,6 +8,7 @@ namespace FairyTaleEncyclopedia
 {
     public partial class WorksWindow : Window
     {
+        private string connectionString = "server=localhost;user=root;database=FairyTaleEncyclopedia;password=;";
         private int _writerId;
 
         public WorksWindow(int writerId)
@@ -21,40 +22,22 @@ namespace FairyTaleEncyclopedia
         private void LoadWorks()
         {
             List<Work> works = new List<Work>();
-            string connectionString = "server=localhost;user=root;database=FairyTaleEncyclopedia;password=;";
-
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 try
                 {
-                    connection.Open();
-                    MySqlCommand command = new MySqlCommand("SELECT WorkID, Title, GenreName, YearOfPublication FROM Works WHERE WriterID = @WriterID", connection);
-                    command.Parameters.AddWithValue("@WriterID", _writerId);
-                    using (MySqlDataReader reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
-                        {
-                            works.Add(new Work
-                            {
-                                WorkID = reader.GetInt32("WorkID"),
-                                Title = reader.GetString("Title"),
-                                GenreName = reader.GetString("GenreName"),
-                                YearOfPublication = reader.IsDBNull("YearOfPublication") ? null : (int?)reader.GetInt32("YearOfPublication")
-                            });
-                        }
+                        connection.Open();
+                        string query = "SELECT * FROM Works";
+                        MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        WorksDataGrid.ItemsSource = dt.DefaultView;
                     }
-
-                    // Debug output to check if data is being loaded
-                    if (works.Count > 0)
-                    {
-                        MessageBox.Show("Works loaded: " + works.Count);
-                    }
-
-                    WorksDataGrid.ItemsSource = works;  // Ensure works are assigned
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Ошибка при загрузке произведений: " + ex.Message);
+                    MessageBox.Show($"Ошибка при загрузке данных: {ex.Message}");
                 }
             }
         }
@@ -73,19 +56,20 @@ namespace FairyTaleEncyclopedia
         // Открытие окна для редактирования выбранного произведения
         private void EditWorkButton_Click(object sender, RoutedEventArgs e)
         {
-            //if (WorksDataGrid.SelectedItem is Work selectedWork)
-            //{
-            //    EditWorkWindow editWorkWindow = new EditWorkWindow(selectedWork); // Передаем выбранное произведение
-            //    if (editWorkWindow.ShowDialog() == true)
-            //    {
-            //        LoadWorks(); // Обновление списка после редактирования
-            //    }
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Пожалуйста, выберите произведение для редактирования.");
-            //}
+            if (WorksDataGrid.SelectedItem is Work selectedWork)
+            {
+                EditWorkWindow editWorkWindow = new EditWorkWindow(selectedWork.WorkID);
+                if (editWorkWindow.ShowDialog() == true)
+                {
+                    LoadWorks(); // Обновляем список после редактирования
+                }
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите произведение для редактирования.");
+            }
         }
+
 
         // Удаление выбранного произведения
         private void DeleteWorkButton_Click(object sender, RoutedEventArgs e)
@@ -94,8 +78,23 @@ namespace FairyTaleEncyclopedia
             {
                 if (MessageBox.Show("Вы уверены, что хотите удалить это произведение?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    DeleteWorkFromDatabase(selectedWork.WorkID);
-                    LoadWorks(); // Обновление списка после удаления
+                    using (MySqlConnection connection = new MySqlConnection(connectionString))
+                    {
+                        try
+                        {
+                            connection.Open();
+                            MySqlCommand command = new MySqlCommand("DELETE FROM Works WHERE WorkID = @WorkID", connection);
+                            command.Parameters.AddWithValue("@WorkID", selectedWork.WorkID);
+                            command.ExecuteNonQuery();
+
+                            // Обновление списка после успешного удаления
+                            LoadWorks();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Ошибка при удалении произведения: " + ex.Message);
+                        }
+                    }
                 }
             }
             else
@@ -104,29 +103,8 @@ namespace FairyTaleEncyclopedia
             }
         }
 
-        // Удаление произведения из базы данных
-        private void DeleteWorkFromDatabase(int workId)
-        {
-            string connectionString = "server=localhost;user=root;database=FairyTaleEncyclopedia;password=;";
-
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = new MySqlCommand("DELETE FROM Works WHERE WorkID = @WorkID", connection);
-                    command.Parameters.AddWithValue("@WorkID", workId);
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Ошибка при удалении произведения: " + ex.Message);
-                }
-            }
-        }
     }
 
-    // Модель для работы с произведениями
     public class Work
     {
         public int WorkID { get; set; }
