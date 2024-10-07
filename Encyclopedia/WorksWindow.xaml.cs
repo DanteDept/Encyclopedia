@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Windows;
+using System.Windows.Media;
 using MySql.Data.MySqlClient;
 
 namespace FairyTaleEncyclopedia
@@ -10,6 +11,7 @@ namespace FairyTaleEncyclopedia
     {
         private string connectionString = "server=localhost;user=root;database=FairyTaleEncyclopedia;password=;";
         private int _writerId;
+        MySqlConnection connection;
 
         public WorksWindow(int writerId)
         {
@@ -41,7 +43,60 @@ namespace FairyTaleEncyclopedia
                 }
             }
         }
+        private void OpenGenreWindow_Click(object sender, RoutedEventArgs e)
+        {
+                AddGenreWindow genreWindow = new AddGenreWindow();
+                genreWindow.ShowDialog();
 
+        }
+
+        private void RemoveText(object sender, EventArgs e)
+        {
+            if (SearchBox.Text == "Поиск")
+            {
+                SearchBox.Text = "";
+                SearchBox.Foreground = Brushes.Black;
+            }
+        }
+
+        private void AddText(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(SearchBox.Text))
+            {
+                SearchBox.Text = "Поиск";
+                SearchBox.Foreground = Brushes.Gray;
+            }
+        }
+
+        private void Search_Click(object sender, RoutedEventArgs e)
+        {
+            string searchTerm = SearchBox.Text;
+
+            if (searchTerm == "Поиск" || string.IsNullOrWhiteSpace(searchTerm))
+            {
+                // Если поле пустое или равно "Поиск", выводим весь список
+                searchTerm = ""; // Пустая строка для вывода всех записей
+            }
+
+            try
+            {
+                using (connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "SELECT * FROM Writers WHERE FirstName LIKE @search";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@search", "%" + searchTerm + "%");
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+                    WorksDataGrid.ItemsSource = dt.DefaultView;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при поиске: {ex.Message}");
+            }
+        }
 
         // Открытие окна для добавления нового произведения
         private void AddWorkButton_Click(object sender, RoutedEventArgs e)

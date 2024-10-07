@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Произведения" Height="450" Width="550">
     <Grid>
-        <!-- <TextBox x:Name="SearchBox" Width="200" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top" Text="Поиск" GotFocus="RemoveText" LostFocus="AddText"/>
-        <Button Content="Поиск" Width="70" Margin="220,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Search_Click" Height="20"/> -->
+        <TextBox x:Name="SearchBox" Width="200" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top" Text="Поиск" GotFocus="RemoveText" LostFocus="AddText"/>
+        <Button Content="Поиск" Width="70" Margin="220,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Search_Click" Height="20"/>
 
         <DataGrid x:Name="WorksDataGrid" AutoGenerateColumns="False" Margin="10,57,10,80" IsReadOnly="True">
             <DataGrid.Columns>
@@ -17,5 +17,6 @@
         <Button Content="Добавить произведение" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="150" Margin="11,0,0,47" Click="AddWorkButton_Click"/>
         <Button Content="Редактировать" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Margin="171,0,0,47" Click="EditWorkButton_Click"/>
         <Button Content="Удалить" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Margin="281,0,0,47" Click="DeleteWorkButton_Click"/>
+        <Button Content="Добавить Жанр" HorizontalAlignment="Left" Margin="410,9,0,0" VerticalAlignment="Top" Click="OpenGenreWindow_Click"/>
     </Grid>
 </Window>
