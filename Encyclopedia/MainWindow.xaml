@@ -18,6 +18,7 @@
         <Button Content="Добавить" Width="100" Margin="10,360,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="AddWriter_Click" Height="20"/>
         <Button Content="Редактировать" Width="100" Margin="120,360,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="EditWriter_Click" Height="20"/>
         <Button Content="Удалить" Width="100" Margin="230,360,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="DeleteWriter_Click" Height="20"/>
-        <Button Content="Произведения" Click="OpenWorksWindow_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="385,10,0,0" Width="90" Height="20"/>
+        <Button Content="Произведения" Click="OpenWorksWindow_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="320,10,0,0" Width="90" Height="20"/>
+        <Button Content="Награды" Margin="440,10,0,0" Click="OpenAwardsWindowButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top"/>
     </Grid>
 </Window>

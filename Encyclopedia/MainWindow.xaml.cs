@@ -5,6 +5,7 @@ using System.Data;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using YourNamespace;
 
 
 namespace FairyTaleEncyclopedia
@@ -338,6 +339,12 @@ namespace FairyTaleEncyclopedia
             {
                 MessageBox.Show("Пожалуйста, выберите писателя.");
             }
+        }
+
+        private void OpenAwardsWindowButton_Click(object sender, RoutedEventArgs e)
+        {
+            AwardsWindow awardsWindow = new AwardsWindow();
+            awardsWindow.ShowDialog();
         }
 
     }

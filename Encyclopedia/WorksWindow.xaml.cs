@@ -108,6 +108,25 @@ namespace FairyTaleEncyclopedia
             }
         }
 
+
+        private void WorksDataGrid_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (WorksDataGrid.SelectedItem is DataRowView selectedRow)
+            {
+                // Извлекаем данные из выбранной строки
+                int workID = Convert.ToInt32(selectedRow["WorkID"]);
+
+                // Открываем окно с детальной информацией о произведении
+                WorkDetailsWindow detailsWindow = new WorkDetailsWindow(workID);
+                detailsWindow.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Не удалось открыть информацию о произведении. Пожалуйста, выберите корректное произведение.");
+            }
+        }
+
+
         // Открытие окна для редактирования выбранного произведения
         private void EditWorkButton_Click(object sender, RoutedEventArgs e)
         {
