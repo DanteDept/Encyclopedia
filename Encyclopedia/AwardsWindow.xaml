@@ -14,8 +14,8 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Content="Добавить" HorizontalAlignment="Left" Margin="9,301,0,0" VerticalAlignment="Top" Width="80" Click="AddAwardButton_Click"/>
-        <Button Content="Редактировать" HorizontalAlignment="Left" Margin="99,301,0,0" VerticalAlignment="Top" Width="80" Click="EditAwardButton_Click"/>
-        <Button Content="Удалить" HorizontalAlignment="Left" Margin="189,301,0,0" VerticalAlignment="Top" Width="80" Click="DeleteAwardButton_Click"/>
+        <Button Content="Добавить" HorizontalAlignment="Left" Margin="9,301,0,0" VerticalAlignment="Top" Width="80" Click="AddButton_Click"/>
+        <Button Content="Редактировать" HorizontalAlignment="Left" Margin="99,301,0,0" VerticalAlignment="Top" Width="80" Click="EditButton_Click"/>
+        <Button Content="Удалить" HorizontalAlignment="Left" Margin="189,301,0,0" VerticalAlignment="Top" Width="80" Click="DeleteButton_Click"/>
     </Grid>
 </Window>

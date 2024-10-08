@@ -1,0 +1,13 @@
+﻿<Window x:Class="YourNamespace.AddEditAwardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Добавить/Редактировать Награду" Height="300" Width="400">
+    <Grid>
+        <TextBox x:Name="AwardNameTextBox" Text="Название награды" Margin="10,10,10,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="YearReceivedTextBox" Text="Год получения" Margin="10,50,10,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="WriterComboBox" Margin="10,90,10,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="WorkComboBox" Margin="10,130,10,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="DescriptionTextBox" Text="Описание" Margin="10,170,10,0" VerticalAlignment="Top" Height="50"/>
+        <Button Content="Сохранить" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Width="80" Click="SaveButton_Click"/>
+    </Grid>
+</Window>

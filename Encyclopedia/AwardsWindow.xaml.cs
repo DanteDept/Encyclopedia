@@ -61,24 +61,43 @@ namespace YourNamespace
         }
 
 
-        private void AddAwardButton_Click(object sender, RoutedEventArgs e)
+        private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            var newAward = new Award(); // Create new instance and set properties
-            // Logic for adding to database
-            AddAward(newAward);
-            awards.Add(newAward);
-        }
+            var addEditWindow = new AddEditAwardWindow();
 
-        private void EditAwardButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (AwardsDataGrid.SelectedItem is Award selectedAward)
+            // Открываем окно добавления награды
+            if (addEditWindow.ShowDialog() == true)
             {
-                // Implement logic to edit the award in the database
-                UpdateAward(selectedAward);
+                // Получаем добавленную награду
+                Award newAward = addEditWindow.CurrentAward;
+                AddAward(newAward);  // Вызываем метод для добавления в базу данных
+                LoadAwards(); // Обновляем список наград
             }
         }
 
-        private void DeleteAwardButton_Click(object sender, RoutedEventArgs e)
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Проверяем, выбрана ли награда для редактирования
+            if (AwardsDataGrid.SelectedItem is Award selectedAward)
+            {
+                var addEditWindow = new AddEditAwardWindow(selectedAward);
+
+                // Открываем окно редактирования награды
+                if (addEditWindow.ShowDialog() == true)
+                {
+                    Award updatedAward = addEditWindow.CurrentAward;
+                    UpdateAward(updatedAward); // Вызываем метод для обновления в базе данных
+                    LoadAwards(); // Обновляем список наград
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите награду для редактирования", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             if (AwardsDataGrid.SelectedItem is Award selectedAward)
             {
