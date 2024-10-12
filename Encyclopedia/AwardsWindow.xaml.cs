@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Windows;
 
-namespace YourNamespace
+namespace FairyTaleEncyclopedia
 {
     public partial class AwardsWindow : Window
     {
@@ -186,9 +186,12 @@ namespace YourNamespace
         public int AwardID { get; set; }
         public string AwardName { get; set; }
         public int? YearReceived { get; set; }
+        public int? WriterID { get; set; }
+        public int? WorkID { get; set; }
         public string FullName { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
     }
+
 
 }

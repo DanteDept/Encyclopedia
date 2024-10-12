@@ -1,7 +1,7 @@
-﻿<Window x:Class="YourNamespace.AddEditAwardWindow"
+﻿<Window x:Class="FairyTaleEncyclopedia.AddEditAwardWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Добавить/Редактировать Награду" Height="300" Width="400">
+        Title="Добавить/Редактировать Награду" Height="300" Width="330">
     <Grid>
         <TextBox x:Name="AwardNameTextBox" Text="Название награды" Margin="10,10,10,0" VerticalAlignment="Top"/>
         <TextBox x:Name="YearReceivedTextBox" Text="Год получения" Margin="10,50,10,0" VerticalAlignment="Top"/>
