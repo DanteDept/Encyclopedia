@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using MySql.Data.MySqlClient;
 
@@ -43,6 +44,7 @@ namespace FairyTaleEncyclopedia
                 }
             }
         }
+
         private void OpenGenreWindow_Click(object sender, RoutedEventArgs e)
         {
                 AddGenreWindow genreWindow = new AddGenreWindow();
@@ -130,12 +132,14 @@ namespace FairyTaleEncyclopedia
         // Открытие окна для редактирования выбранного произведения
         private void EditWorkButton_Click(object sender, RoutedEventArgs e)
         {
-            if (WorksDataGrid.SelectedItem is Work selectedWork)
+            if (WorksDataGrid.SelectedItem is DataRowView selectedRow)
             {
-                EditWorkWindow editWorkWindow = new EditWorkWindow(selectedWork.WorkID);
+                int workID = Convert.ToInt32(selectedRow["WorkID"]);
+
+                EditWorkWindow editWorkWindow = new EditWorkWindow(workID);
                 if (editWorkWindow.ShowDialog() == true)
                 {
-                    LoadWorks(); // Обновляем список после редактирования
+                    LoadWorks();
                 }
             }
             else
@@ -145,12 +149,16 @@ namespace FairyTaleEncyclopedia
         }
 
 
+
         // Удаление выбранного произведения
         private void DeleteWorkButton_Click(object sender, RoutedEventArgs e)
         {
-            if (WorksDataGrid.SelectedItem is Work selectedWork)
+            if (WorksDataGrid.SelectedItem is DataRowView selectedRow)
             {
-                if (MessageBox.Show("Вы уверены, что хотите удалить это произведение?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                int workID = Convert.ToInt32(selectedRow["WorkID"]);
+
+                if (MessageBox.Show("Вы уверены, что хотите удалить это произведение?",
+                                    "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     using (MySqlConnection connection = new MySqlConnection(connectionString))
                     {
@@ -158,10 +166,8 @@ namespace FairyTaleEncyclopedia
                         {
                             connection.Open();
                             MySqlCommand command = new MySqlCommand("DELETE FROM Works WHERE WorkID = @WorkID", connection);
-                            command.Parameters.AddWithValue("@WorkID", selectedWork.WorkID);
+                            command.Parameters.AddWithValue("@WorkID", workID);
                             command.ExecuteNonQuery();
-
-                            // Обновление списка после успешного удаления
                             LoadWorks();
                         }
                         catch (Exception ex)
@@ -176,7 +182,6 @@ namespace FairyTaleEncyclopedia
                 MessageBox.Show("Пожалуйста, выберите произведение для удаления.");
             }
         }
-
     }
 
     public class Work
