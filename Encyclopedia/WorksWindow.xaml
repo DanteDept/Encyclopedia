@@ -18,6 +18,6 @@
         <Button Content="Добавить произведение" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="150" Margin="11,0,0,47" Click="AddWorkButton_Click"/>
         <Button Content="Редактировать" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Margin="171,0,0,47" Click="EditWorkButton_Click"/>
         <Button Content="Удалить" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Margin="281,0,0,47" Click="DeleteWorkButton_Click"/>
-        <Button Content="Добавить Жанр" HorizontalAlignment="Left" Margin="375,12,0,0" VerticalAlignment="Top" Click="OpenGenreWindow_Click"/>
+        <Button Content="Добавить Жанр" HorizontalAlignment="Left" Margin="400,10,0,0" VerticalAlignment="Top" Click="OpenGenreWindow_Click"/>
     </Grid>
 </Window>
