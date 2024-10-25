@@ -1,24 +1,56 @@
 ﻿<Window x:Class="FairyTaleEncyclopedia.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Энциклопедия сказочников мира" MinHeight="450" MinWidth="550" MaxHeight="450" MaxWidth="550">
-    <Grid>
-        <TextBox x:Name="SearchBox" Width="200" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top" Text="Поиск" GotFocus="RemoveText" LostFocus="AddText"/>
-        <Button Content="Поиск" Width="70" Margin="220,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Search_Click" Height="20"/>
+        Title="Энциклопедия сказочников мира" Height="500" Width="600"
+        MinHeight="500" MinWidth="600"
+        Background="#FAF9F6" FontFamily="Segoe UI" FontSize="14">
 
-        <DataGrid x:Name="WritersGrid" AutoGenerateColumns="False" Height="300" Margin="10,49,10,85" IsReadOnly="True" MouseDoubleClick="WritersGrid_MouseDoubleClick">
+    <Grid Margin="10">
+        <!-- Верхняя панель для поиска и кнопок -->
+        <DockPanel Margin="0,0,0,424" LastChildFill="False">
+            <TextBox x:Name="SearchBox" Width="250" Height="30" 
+                     Margin="0,0,10,0" VerticalAlignment="Center" 
+                     HorizontalAlignment="Left" Text="Поиск"
+                     GotFocus="RemoveText" LostFocus="AddText"/>
+            <Button Content="Поиск" Width="80" Height="30" 
+                    Background="#2A9D8F" Foreground="White" 
+                    FontWeight="Bold" BorderBrush="#264653" 
+                    Margin="0,0,10,0" Click="Search_Click"/>
+            <Button Content="Произведения" Width="110" Height="30" 
+                    Background="#2A9D8F" Foreground="White" 
+                    FontWeight="Bold" BorderBrush="#264653" 
+                    Margin="0,0,10,0" Click="OpenWorksWindow_Click"/>
+            <Button Content="Награды" Width="90" Height="30" 
+                    Background="#2A9D8F" Foreground="White" 
+                    FontWeight="Bold" BorderBrush="#264653" Click="OpenAwardsWindowButton_Click"/>
+        </DockPanel>
+
+        <!-- Таблица с авторами -->
+        <DataGrid x:Name="WritersGrid" AutoGenerateColumns="False" 
+                  Margin="0,40,0,80" IsReadOnly="True" 
+                  AlternatingRowBackground="#EDEDED"
+                  ColumnHeaderStyle="{StaticResource ColumnHeaderStyle}"
+                  MouseDoubleClick="WritersGrid_MouseDoubleClick"
+                  SelectionMode="Single">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" Width="*" />
-                <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" Width="*" />
+                <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" Width="*"/>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" Width="*"/>
                 <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}" Width="*"/>
-                <DataGridTextColumn Header="Страна" Binding="{Binding CountryName}" Width="*" />
+                <DataGridTextColumn Header="Страна" Binding="{Binding CountryName}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Content="Добавить" Width="100" Margin="10,360,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="AddWriter_Click" Height="20"/>
-        <Button Content="Редактировать" Width="100" Margin="120,360,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="EditWriter_Click" Height="20"/>
-        <Button Content="Удалить" Width="100" Margin="230,360,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="DeleteWriter_Click" Height="20"/>
-        <Button Content="Произведения" Click="OpenWorksWindow_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="320,10,0,0" Width="90" Height="20"/>
-        <Button Content="Награды" Margin="440,10,0,0" Click="OpenAwardsWindowButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <!-- Нижняя панель управления -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10">
+            <Button Content="Добавить" Width="100" Height="35" 
+                    Background="#2A9D8F" Foreground="White" 
+                    FontWeight="Bold" BorderBrush="#264653" Margin="5" Click="AddWriter_Click"/>
+            <Button Content="Редактировать" Width="130" Height="35" 
+                    Background="#2A9D8F" Foreground="White" 
+                    FontWeight="Bold" BorderBrush="#264653" Margin="5" Click="EditWriter_Click"/>
+            <Button Content="Удалить" Width="100" Height="35" 
+                    Background="#E76F51" Foreground="White" 
+                    FontWeight="Bold" BorderBrush="#264653" Margin="5" Click="DeleteWriter_Click"/>
+        </StackPanel>
     </Grid>
 </Window>
