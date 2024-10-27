@@ -1,24 +1,51 @@
 ﻿<Window x:Class="FairyTaleEncyclopedia.AddWorkWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Добавить произведение" Height="400" Width="400">
-    <Grid>
-        <TextBlock Text="Название:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
-        <TextBox x:Name="TitleBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="180,10,0,0"/>
+        Title="Добавить произведение" Height="400" Width="450"
+        Background="#FAF9F6" FontFamily="Segoe UI" FontSize="14">
 
-        <TextBlock Text="Жанр:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,50,0,0"/>
-        <ComboBox x:Name="GenreComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="180,50,0,0"/>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-        <TextBlock Text="Автор:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"/>
-        <ComboBox x:Name="WriterComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="180,90,0,0"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-        <TextBlock Text="Год публикации:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,130,0,0"/>
-        <TextBox x:Name="YearBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="180,130,0,0"/>
+        <!-- Поля ввода -->
+        <TextBlock Text="Название:" VerticalAlignment="Center" Margin="5,0,5,0" Grid.Column="0"/>
+        <TextBox x:Name="TitleBox" Height="30" Margin="5,5,5,5" Grid.Row="0" Grid.Column="1"/>
 
-        <TextBlock Text="Описание:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,170,0,0"/>
-        <TextBox x:Name="DescriptionBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="100" Margin="180,170,0,0" TextWrapping="Wrap"/>
+        <TextBlock Text="Жанр:" VerticalAlignment="Center" Margin="5,0,5,0" Grid.Row="1" Grid.Column="0"/>
+        <ComboBox x:Name="GenreComboBox" Height="30" Margin="5,5,5,5" Grid.Row="1" Grid.Column="1"/>
 
-        <Button Content="Сохранить" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Height="30" Margin="100,0,0,20" Click="SaveButton_Click"/>
-        <Button Content="Отмена" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Height="30" Margin="220,0,0,20" Click="CancelButton_Click"/>
+        <TextBlock Text="Автор:" VerticalAlignment="Center" Margin="5,0,5,0" Grid.Row="2" Grid.Column="0"/>
+        <ComboBox x:Name="WriterComboBox" Height="30" Margin="5,5,5,5" Grid.Row="2" Grid.Column="1"/>
+
+        <TextBlock Text="Год публикации:" VerticalAlignment="Center" Margin="5,0,5,0" Grid.Row="3" Grid.Column="0"/>
+        <TextBox x:Name="YearBox" Height="30" Margin="5,5,5,5" Grid.Row="3" Grid.Column="1"/>
+
+        <TextBlock Text="Описание:" VerticalAlignment="Top" Margin="5,5,5,0" Grid.Row="4" Grid.Column="0"/>
+        <TextBox x:Name="DescriptionBox" Margin="5,5,5,5" Grid.Row="4" Grid.Column="1" Height="100"
+                 TextWrapping="Wrap" AcceptsReturn="True"/>
+
+        <!-- Кнопки -->
+        <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.ColumnSpan="2" 
+                    HorizontalAlignment="Left" Margin="75,10,0,0" Height="62" VerticalAlignment="Top">
+            <Button Content="Сохранить" Width="120" Height="35" Margin="10" 
+                    Background="#2A9D8F" Foreground="White" FontWeight="Bold" 
+                    BorderBrush="#264653" Click="SaveButton_Click"/>
+
+            <Button Content="Отмена" Width="120" Height="35" Margin="10" 
+                    Background="#E76F51" Foreground="White" FontWeight="Bold" 
+                    BorderBrush="#264653" Click="CancelButton_Click"/>
+        </StackPanel>
     </Grid>
 </Window>

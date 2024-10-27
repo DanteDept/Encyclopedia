@@ -7,7 +7,7 @@
 
     <Grid Margin="10">
         <!-- Верхняя панель для поиска и кнопок -->
-        <DockPanel Margin="0,0,0,424" LastChildFill="False">
+        <DockPanel Margin="0,0,0,407" LastChildFill="False">
             <TextBox x:Name="SearchBox" Width="250" Height="30" 
                      Margin="0,0,10,0" VerticalAlignment="Center" 
                      HorizontalAlignment="Left" Text="Поиск"
@@ -27,7 +27,7 @@
 
         <!-- Таблица с авторами -->
         <DataGrid x:Name="WritersGrid" AutoGenerateColumns="False" 
-                  Margin="0,40,0,80" IsReadOnly="True" 
+                  Margin="0,62,0,62" IsReadOnly="True" 
                   AlternatingRowBackground="#EDEDED"
                   ColumnHeaderStyle="{StaticResource ColumnHeaderStyle}"
                   MouseDoubleClick="WritersGrid_MouseDoubleClick"
