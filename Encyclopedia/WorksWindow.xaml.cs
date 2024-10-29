@@ -113,20 +113,42 @@ namespace FairyTaleEncyclopedia
 
         private void WorksDataGrid_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (WorksDataGrid.SelectedItem is DataRowView selectedRow)
-            {
-                // Извлекаем данные из выбранной строки
-                int workID = Convert.ToInt32(selectedRow["WorkID"]);
+            // Получаем информацию о том, что кликнуло
+            var cellInfo = WorksDataGrid.CurrentCell;
 
-                // Открываем окно с детальной информацией о произведении
-                WorkDetailsWindow detailsWindow = new WorkDetailsWindow(workID);
-                detailsWindow.ShowDialog();
-            }
-            else
+            // Проверяем, что клик был по ячейке
+            if (cellInfo != null && cellInfo.Column is DataGridTextColumn column)
             {
-                MessageBox.Show("Не удалось открыть информацию о произведении. Пожалуйста, выберите корректное произведение.");
+                // Если клик по колонке Жанра, открываем окно с описанием жанра
+                if (column.Header.ToString() == "Жанр" && WorksDataGrid.SelectedItem is DataRowView selectedRow)
+                {
+                    string genreName = selectedRow["GenreName"].ToString();
+                    OpenGenreDetails(genreName);  // Вызовем функцию открытия окна жанра
+                    return;  // Прекращаем выполнение, если жанр был выбран
+                }
+
+                // Обычное поведение — открытие окна с деталями произведения
+                if (WorksDataGrid.SelectedItem is DataRowView row)
+                {
+                    int workID = Convert.ToInt32(row["WorkID"]);
+                    WorkDetailsWindow detailsWindow = new WorkDetailsWindow(workID);
+                    detailsWindow.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Не удалось открыть информацию о произведении. Пожалуйста, выберите корректное произведение.");
+                }
             }
         }
+
+        // Метод для открытия окна с описанием жанра
+        private void OpenGenreDetails(string genreName)
+        {
+            // Здесь откроем окно с подробным описанием жанра
+            GenreDetailsWindow genreWindow = new GenreDetailsWindow(genreName);
+            genreWindow.ShowDialog();
+        }
+
 
 
         // Открытие окна для редактирования выбранного произведения

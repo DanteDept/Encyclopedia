@@ -1,18 +1,26 @@
 ﻿<Window x:Class="FairyTaleEncyclopedia.WorkDetailsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Детали произведения" Height="300" Width="400">
-    <StackPanel Margin="10">
-        <TextBlock Text="Название:" FontWeight="Bold" />
-        <TextBlock x:Name="TitleTextBlock" Margin="0,0,0,10"/>
+        Title="Детали произведения" Height="400" Width="450" 
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Background="#FAF9F6" FontFamily="Segoe UI" FontSize="14">
 
-        <TextBlock Text="Жанр:" FontWeight="Bold" />
-        <TextBlock x:Name="GenreTextBlock" Margin="0,0,0,10"/>
+    <Border Margin="10" Padding="10" BorderBrush="#264653" BorderThickness="2" CornerRadius="10">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
 
-        <TextBlock Text="Год публикации:" FontWeight="Bold" />
-        <TextBlock x:Name="YearTextBlock" Margin="0,0,0,10"/>
+                <TextBlock Text="Название:" FontWeight="Bold" Margin="0,0,0,5"/>
+                <TextBlock x:Name="TitleTextBlock" Margin="0,0,0,10" TextWrapping="Wrap" FontSize="16"/>
 
-        <TextBlock Text="Описание:" FontWeight="Bold" />
-        <TextBlock x:Name="DescriptionTextBlock" TextWrapping="Wrap"/>
-    </StackPanel>
+                <TextBlock Text="Жанр:" FontWeight="Bold" Margin="0,0,0,5"/>
+                <TextBlock x:Name="GenreTextBlock" Margin="0,0,0,10" TextWrapping="Wrap"/>
+
+                <TextBlock Text="Год публикации:" FontWeight="Bold" Margin="0,0,0,5"/>
+                <TextBlock x:Name="YearTextBlock" Margin="0,0,0,10"/>
+
+                <TextBlock Text="Описание:" FontWeight="Bold" Margin="0,0,0,5"/>
+                <TextBlock x:Name="DescriptionTextBlock" TextWrapping="Wrap" Margin="0,0,0,10" FontSize="14"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
 </Window>
