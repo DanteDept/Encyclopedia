@@ -1,9 +1,9 @@
 ﻿<Window x:Class="FairyTaleEncyclopedia.WorkDetailsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Детали произведения" Height="400" Width="450" 
+        Title="Детали произведения" MinHeight="400" MinWidth="450"  MaxHeight="400" MaxWidth="450"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
-        Background="#FAF9F6" FontFamily="Segoe UI" FontSize="14">
+        Background="#FAF9F6" FontFamily="Segoe UI" FontSize="14" Icon="/icon.png">
 
     <Border Margin="10" Padding="10" BorderBrush="#264653" BorderThickness="2" CornerRadius="10">
         <ScrollViewer VerticalScrollBarVisibility="Auto">

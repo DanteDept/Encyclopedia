@@ -1,7 +1,7 @@
 ﻿<Window x:Class="FairyTaleEncyclopedia.AddGenreWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Добавить жанр" Height="200" Width="400">
+        Title="Добавить жанр"  MinHeight="200" MinWidth="400"  MaxHeight="200" MaxWidth="400" Icon="/icon.png">
     <Grid>
         <TextBlock Text="Название жанра:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,19,0,0"/>
         <TextBox x:Name="GenreNameBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="150,20,0,0" Height="20"/>

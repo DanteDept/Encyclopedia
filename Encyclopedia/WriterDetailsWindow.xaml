@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Encyclopedia"
         mc:Ignorable="d"
-        Title="WriterDetailsWindow" Height="450" Width="600">
+        Title="WriterDetailsWindow" MinHeight="450" MinWidth="600"  MaxHeight="450" MaxWidth="600" Icon="/icon.png">
     <Grid>
         <TextBlock Name="FirstNameText" Width="80" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,22,0,0"/>
         <TextBlock x:Name="LastNameText" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Margin="95,22,0,0"/>
