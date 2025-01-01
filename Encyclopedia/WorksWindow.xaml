@@ -2,11 +2,11 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Произведения" MinHeight="450" MinWidth="600"  MaxHeight="450" MaxWidth="600"
-        Background="#FAF9F6" FontFamily="Segoe UI" FontSize="14" Icon="/icon.png">
+        Background="#FAF9F6" FontFamily="Segoe UI" FontSize="14" Icon="/icon.png" Height="450">
 
-    <Grid Margin="10">
+    <Grid>
         <!-- Поисковая панель -->
-        <DockPanel Margin="0,0,0,364" LastChildFill="False">
+        <DockPanel Margin="10,-4,10,370" LastChildFill="False">
             <TextBox x:Name="SearchBox" Width="250" Height="30" 
                      Margin="0,0,10,0" VerticalAlignment="Center" 
                      HorizontalAlignment="Left" Text="Поиск"
@@ -22,7 +22,7 @@
 
         <!-- Таблица произведений -->
         <DataGrid x:Name="WorksDataGrid" AutoGenerateColumns="False" 
-                  Margin="0,55,0,60" IsReadOnly="True" 
+                  Margin="10,60,10,90" IsReadOnly="True" 
                   AlternatingRowBackground="#EDEDED" 
                   ColumnHeaderStyle="{StaticResource ColumnHeaderStyle}" 
                   SelectionMode="Single" MouseDoubleClick="WorksDataGrid_MouseDoubleClick">
@@ -38,7 +38,7 @@
         </DataGrid>
 
         <!-- Панель управления снизу -->
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,345,0,0" Height="61">
             <Button Content="Добавить произведение" Height="35" 
                     Background="#2A9D8F" Foreground="White" 
                     FontWeight="Bold" BorderBrush="#264653" Margin="5" Width="185" Click="AddWorkButton_Click"/>
