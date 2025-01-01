@@ -10,7 +10,7 @@ namespace FairyTaleEncyclopedia
 {
     public partial class WorksWindow : Window
     {
-        private string connectionString = "server=localhost;user=root;database=FairyTaleEncyclopedia;password=;";
+        private string connectionString = "server=localhost;user=Dante;database=FairyTaleEncyclopedia;password=Alighieri;";
         private int _writerId;
         MySqlConnection connection;
 

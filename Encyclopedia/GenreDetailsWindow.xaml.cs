@@ -6,7 +6,7 @@ namespace FairyTaleEncyclopedia
 {
     public partial class GenreDetailsWindow : Window
     {
-        private string connectionString = "server=localhost;user=root;database=FairyTaleEncyclopedia;password=;";
+        private string connectionString = "server=localhost;user=Dante;database=FairyTaleEncyclopedia;password=Alighieri;";
 
         public GenreDetailsWindow(string genreName)
         {

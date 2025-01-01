@@ -40,7 +40,7 @@ namespace FairyTaleEncyclopedia
 
         private bool AddGenreToDatabase()
         {
-            string connectionString = "server=localhost;user=root;database=FairyTaleEncyclopedia;password=;";
+            string connectionString = "server=localhost;user=Dante;database=FairyTaleEncyclopedia;password=Alighieri;";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {

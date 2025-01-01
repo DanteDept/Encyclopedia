@@ -37,6 +37,10 @@
                 <DataGridTextColumn Header="Произведение" Binding="{Binding Title}" Width="2*"/>
                 <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="3*"/>
             </DataGrid.Columns>
+            <DataGrid.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                   Color="#FFED0033"/>
+            </DataGrid.Resources>
         </DataGrid>
     </Grid>
 </Window>

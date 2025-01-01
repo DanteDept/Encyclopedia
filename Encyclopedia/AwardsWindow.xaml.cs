@@ -8,7 +8,7 @@ namespace FairyTaleEncyclopedia
 {
     public partial class AwardsWindow : Window
     {
-        private string connectionString = "server=localhost;user=root;database=FairyTaleEncyclopedia;password=;";
+        private string connectionString = "server=localhost;user=Dante;database=FairyTaleEncyclopedia;password=Alighieri;";
         private ObservableCollection<Award> awards;
 
         public AwardsWindow()

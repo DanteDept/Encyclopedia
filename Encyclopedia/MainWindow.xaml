@@ -38,6 +38,10 @@
                 <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}" Width="*"/>
                 <DataGridTextColumn Header="Страна" Binding="{Binding CountryName}" Width="*"/>
             </DataGrid.Columns>
+            <DataGrid.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                   Color="#FFED0033"/>
+            </DataGrid.Resources>
         </DataGrid>
 
         <!-- Нижняя панель управления -->

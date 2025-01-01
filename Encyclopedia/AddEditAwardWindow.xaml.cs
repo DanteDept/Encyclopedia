@@ -6,7 +6,7 @@ namespace FairyTaleEncyclopedia
     public partial class AddEditAwardWindow : Window
     {
         public Award CurrentAward { get; private set; }
-        private string connectionString = "server=localhost;user=root;database=FairyTaleEncyclopedia;password=;";
+        private string connectionString = "server=localhost;user=Dante;database=FairyTaleEncyclopedia;password=Alighieri;";
 
         public AddEditAwardWindow(Award award = null)
         {

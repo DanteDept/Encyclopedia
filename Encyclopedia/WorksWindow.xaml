@@ -31,6 +31,10 @@
                 <DataGridTextColumn Header="Жанр" Binding="{Binding GenreName}" Width="*" />
                 <DataGridTextColumn Header="Год публикации" Binding="{Binding YearOfPublication}" Width="*" />
             </DataGrid.Columns>
+            <DataGrid.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                   Color="#FFED0033"/>
+            </DataGrid.Resources>
         </DataGrid>
 
         <!-- Панель управления снизу -->

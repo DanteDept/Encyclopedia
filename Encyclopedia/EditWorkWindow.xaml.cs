@@ -26,7 +26,7 @@ namespace FairyTaleEncyclopedia
         private void LoadGenres()
         {
             List<string> genres = new List<string>();
-            string connectionString = "server=localhost;user=root;database=FairyTaleEncyclopedia;password=;";
+            string connectionString = "server=localhost;user=Dante;database=FairyTaleEncyclopedia;password=Alighieri;";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -54,7 +54,7 @@ namespace FairyTaleEncyclopedia
         // Загрузка текущих данных о произведении
         private void LoadWorkData()
         {
-            string connectionString = "server=localhost;user=root;database=FairyTaleEncyclopedia;password=;";
+            string connectionString = "server=localhost;user=Dante;database=FairyTaleEncyclopedia;password=Alighieri;";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -117,7 +117,7 @@ namespace FairyTaleEncyclopedia
 
         private bool UpdateWorkInDatabase()
         {
-            string connectionString = "server=localhost;user=root;database=FairyTaleEncyclopedia;password=;";
+            string connectionString = "server=localhost;user=Dante;database=FairyTaleEncyclopedia;password=Alighieri;";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {

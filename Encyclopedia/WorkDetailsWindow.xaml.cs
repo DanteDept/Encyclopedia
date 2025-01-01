@@ -8,7 +8,7 @@ namespace FairyTaleEncyclopedia
     public partial class WorkDetailsWindow : Window
     {
         private int _workID;
-        private string connectionString = "server=localhost;user=root;database=FairyTaleEncyclopedia;password=;";
+        private string connectionString = "server=localhost;user=Dante;database=FairyTaleEncyclopedia;password=Alighieri;";
 
         public WorkDetailsWindow(int workID)
         {
